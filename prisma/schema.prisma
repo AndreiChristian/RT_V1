@@ -26,6 +26,7 @@ model Template {
   name        String              @unique
   description String
   price       Float
+  available   Boolean             @default(false)
   colors      Template_Color[]
   Purchase    Template_Purchase[]
   // created & upated
