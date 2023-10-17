@@ -20,7 +20,6 @@ export default function TemplateList() {
   const [price, setPrice] = useState(3200)
 
   return <section>
-    <h1>Create a new template</h1>
     <div className="" >
       <Card>
         <CardHeader>

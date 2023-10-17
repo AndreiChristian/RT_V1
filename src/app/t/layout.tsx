@@ -1,9 +1,10 @@
 import { LayoutProps } from "../models/next_models";
+import EditingBar from "./_components/EditingBar";
 
 export default function Layout({ children }: LayoutProps) {
   return <>
     {children}
-    <h1>Here will be the floating bar for editing content</h1>
+    <EditingBar />
     <h2>Here will be the color picker</h2>
   </>
 }

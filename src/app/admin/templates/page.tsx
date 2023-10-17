@@ -1,15 +1,20 @@
+import H1 from "@/components/ui/HeaderOne";
+import TemplatesTablesRow from "../_components/templatesTableRow";
 import { Separator } from "@/components/ui/separator";
 import {
   Table,
   TableBody,
   TableCaption,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
 import { prisma } from "@/primsa";
-import { MoreHorizontal } from "lucide-react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Admin"
+}
 
 export default async function Page() {
 
@@ -21,7 +26,7 @@ export default async function Page() {
   })
 
   return <>
-    <h1>Templates</h1>
+    <H1 text="Templates" />
     <Separator />
 
     <Table>
@@ -34,22 +39,12 @@ export default async function Page() {
           <TableHead className="text-center" >Purcahses</TableHead>
           <TableHead className="text-center" >Colors</TableHead>
           <TableHead className="text-center" >Price</TableHead>
-          <TableHead className="text-right">Actions</TableHead>
+          <TableHead className="text-center">Actions</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {templates.map(t => {
-          return <TableRow>
-            <TableCell className="font-medium">{t.id}</TableCell>
-            <TableCell>{t.name}</TableCell>
-            <TableCell>{t.description}</TableCell>
-            <TableCell className="text-center" >{t.Purchase.length}</TableCell>
-            <TableCell className="text-center" >{t.colors.length}</TableCell>
-            <TableCell className="text-center" >{t.price}</TableCell>
-            <TableCell className="flex items-center justify-center">
-              <MoreHorizontal />
-            </TableCell>
-          </TableRow>
+          return <TemplatesTablesRow t={t} />
         })}
       </TableBody>
     </Table>

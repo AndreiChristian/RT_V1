@@ -12,7 +12,7 @@ export default async function Page() {
         <h2>There are no templates</h2>
         :
         <ul>
-          {templates.map(t => <li key={t.id}><Link href={`/templates/${t.id}`} >{t.name}</Link></li>)}
+          {templates.map(t => <li key={t.id}><Link href={`/t/${t.id}`} >{t.name}</Link></li>)}
         </ul>
       }
     </main>
