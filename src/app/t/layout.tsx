@@ -5,6 +5,5 @@ export default function Layout({ children }: LayoutProps) {
   return <>
     {children}
     <EditingBar />
-    <h2>Here will be the color picker</h2>
   </>
 }

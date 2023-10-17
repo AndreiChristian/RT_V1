@@ -1,5 +1,7 @@
 import NotFound from "@/components/NotFound"
 import { prisma } from "@/primsa"
+import Template_One from "@/templates/template_1/template_1"
+import TemplateState from "../_components/TemplateState"
 
 export default async function Page({ params }: { params: { tId: string } }) {
 
@@ -10,9 +12,8 @@ export default async function Page({ params }: { params: { tId: string } }) {
   })
 
   return <>
-    <h1>The configuration page for template {params.tId}</h1>
     {template ?
-      <div>{JSON.stringify(template)}</div>
+      <TemplateState templateId={params.tId} />
       :
       <NotFound />
     }
