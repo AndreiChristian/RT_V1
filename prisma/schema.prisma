@@ -1,0 +1,96 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int        @id @default(autoincrement())
+  email     String     @unique
+  password  String
+  name      String
+  Purchase  Purchase[]
+  // created & upated
+  createdAt DateTime?  @default(now())
+  updatedAt DateTime?  @default(now())
+}
+
+model Template {
+  id          Int                 @id @default(autoincrement())
+  name        String              @unique
+  description String
+  price       Float
+  colors      Template_Color[]
+  Purchase    Template_Purchase[]
+  // created & upated
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @default(now())
+}
+
+model Template_Content {
+  id        Int                @id @default(autoincrement())
+  // data
+  title     String
+  subtitle  String
+  aboutMe   String
+  // relations
+  Purchase  Template_Purchase?
+  // created & upated
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @default(now())
+}
+
+model Template_Color {
+  id         Int                 @id @default(autoincrement())
+  templateId Int
+  template   Template            @relation(fields: [templateId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  available  Boolean             @default(false)
+  name       String
+  primary    String
+  secondary  String
+  tertiary   String
+  Purchase   Template_Purchase[]
+  // created & upated
+  createdAt  DateTime            @default(now())
+  updatedAt  DateTime            @default(now())
+}
+
+model Template_Purchase {
+  id                 Int              @id @default(autoincrement())
+  // template relation
+  template           Template         @relation(fields: [templateId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  templateId         Int
+  // template color connection
+  color              Template_Color   @relation(fields: [template_ColorId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  template_ColorId   Int
+  // template content connection
+  content            Template_Content @relation(fields: [template_ContentId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  template_ContentId Int              @unique
+  Purchase           Purchase?
+  // created & upated
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @default(now())
+}
+
+model Purchase {
+  id                  Int               @id @default(autoincrement())
+  templatePurchase    Template_Purchase @relation(fields: [template_PurchaseId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  template_PurchaseId Int               @unique
+  user                User              @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId              Int
+  // created & upated
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @default(now())
+}
+
+model Todo {
+  id      Int     @id @default(autoincrement())
+  content String
+  done    Boolean @default(false)
+}
